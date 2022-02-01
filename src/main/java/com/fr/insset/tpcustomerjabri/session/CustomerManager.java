@@ -20,21 +20,24 @@ import javax.persistence.Query;
 @Stateless
 public class CustomerManager {
 
-    @PersistenceContext(unitName = "customerPU")
+   @PersistenceContext(unitName = "customerPU")
     private EntityManager em;
-    @Resource
-    private javax.transaction.UserTransaction utx;
-    
+
     public List<Customer> getAllCustomers() {
-      Query query = em.createNamedQuery ("Customer.findAll");
-      return query.getResultList();  
-    }  
-        
+       Query query = em.createNamedQuery("Customer.findAll");
+       return query.getResultList();
+    }
+
     public Customer update(Customer customer) {
-      return em.merge(customer);  
-    }  
+       return em.merge(customer);
+    }
 
     public void persist(Customer customer) {
-            em.persist(customer);
+       em.persist(customer);
     }
+    public Customer getCustomer(int idCustomer) {  
+        return em.find(Customer.class, idCustomer);  
+    }
+    
+
 }
